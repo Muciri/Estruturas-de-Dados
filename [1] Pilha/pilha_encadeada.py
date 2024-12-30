@@ -30,10 +30,9 @@ class pilha_encadeada:
         return self.__topo == -1
     
     def topo(self):
-        if not self.vazia():
-            return self.__head.carga   
-        else:
+        if self.vazia():
             raise IndexError("a pilha está vazia")
+        return self.__head.carga         
     
     #MÉTODOS GERAIS
     def empilha(self, carga:any):
@@ -43,13 +42,12 @@ class pilha_encadeada:
         self.__head = novo
 
     def desempilha(self):
-        if not self.vazia():
-            self.__topo -= 1
-            elemento = self.__head.carga
-            self.__head = self.__head.prox
-            return elemento
-        else:
+        if self.vazia():
             raise IndexError("a pilha está vazia")
+        self.__topo -= 1
+        elemento = self.__head.carga
+        self.__head = self.__head.prox
+        return elemento  
         
     def busca(self, elemento):
         cursor = self.__head

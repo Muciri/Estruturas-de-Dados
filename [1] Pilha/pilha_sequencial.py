@@ -28,27 +28,25 @@ class pilha_sequencial:
         return self.__topo == -1
     
     def topo(self):
-        if not self.vazia():
-            return self.__dados[self.__topo]  
-        else:
+        if self.vazia():
             raise IndexError("a pilha está vazia")
+        return self.__dados[self.__topo]       
     
     #MÉTODOS GERAIS
     def empilha(self, carga:any):
-        if not self.cheia():
-            self.__topo += 1
-            self.__dados[self.__topo] = carga
-        else:
+        if self.cheia():
             raise IndexError("a pilha está cheia")
+        self.__topo += 1
+        self.__dados[self.__topo] = carga
+            
 
     def desempilha(self):
-        if not self.vazia():
-            elemento = self.__dados[self.__topo]
-            self.__dados[self.__topo] = None
-            self.__topo -= 1
-            return elemento
-        else:
+        if self.vazia():
             raise IndexError("a pilha está vazia")
+        elemento = self.__dados[self.__topo]
+        self.__dados[self.__topo] = None
+        self.__topo -= 1
+        return elemento     
         
     def busca_elemento(self, num):
         if num < 0 or num > self.__topo:
