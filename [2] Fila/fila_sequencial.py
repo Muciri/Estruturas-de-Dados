@@ -13,12 +13,13 @@ class fila_sequencial:
         if self.vazia():
             return '||'
     
-        pilha = '|>'
-        for i in self.__dados[:self.__tamanho]:
-            if i != None:
-                pilha += f'{i}, '
-        pilha = pilha.rstrip(', ') + '<|' 
-        return pilha
+        fila = '|>'
+        cursor = self.__frente
+        for _ in range(self.__tamanho):
+            fila += f'{self.__dados[cursor]}, '
+            cursor = (cursor + 1) % len(self.__dados)
+        fila = fila.rstrip(', ') + '<|' 
+        return fila
     
     def __len__(self):
         return self.__tamanho
@@ -28,32 +29,41 @@ class fila_sequencial:
         return self.__tamanho == len(self.__dados)
     
     def vazia(self):
-        return self.__tamanho == -1
+        return self.__tamanho == 0
     
     def frente(self):
         if not self.vazia():
             return self.__dados[self.__frente]  
         else:
-            raise IndexError("a pilha está vazia")
+            raise IndexError("a fila está vazia")
     
     #MÉTODOS GERAIS
     def enfileira(self, carga:any):
         if self.cheia():    
-            raise IndexError("a pilha está cheia")    
+            raise IndexError("a fila está cheia")    
         self.__fim = (self.__fim + 1) % len(self.__dados)
         self.__dados[self.__fim] = carga
         self.__tamanho += 1
 
     def desenfileira(self):
         if self.vazia():
-            raise IndexError("a pilha está vazia")
+            raise IndexError("a fila está vazia")
         elemento = self.__dados[self.__frente]
         self.__dados[self.__frente] = None
         self.__frente = (self.__frente +1) % len(self.__dados)
+        self.__tamanho -= 1
         return elemento 
-        
+
+    def busca(self, elemento):
+        cursor = self.__frente
+        for i in range(len(self)):
+            if self.__dados[cursor] == elemento:
+                return self.__dados[cursor]
+            cursor = (cursor + 1) % len(self.__dados)   
+        raise ValueError(f"Elemento {elemento} não encontrado na fila") 
+
     def busca_elemento(self, num):
-        if num < 0 or num > self.__tamanho:
+        if num < 0 or num >= self.__tamanho:
             raise IndexError("valor fora do intervalo")
         cursor = self.__frente
         for i in range(num):

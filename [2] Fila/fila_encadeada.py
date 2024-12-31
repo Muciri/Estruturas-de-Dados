@@ -9,65 +9,70 @@ class controle:
         self.fim = None
         self.tamanho = 0
 
-class pilha_encadeada:
+class fila_encadeada:
     #CONSTRUTOR
     def __init__(self):
-        self.__head = None
-        self.__topo = -1
+        self.__head = controle()
     
     #MÉTODOS ESPECIAIS
     def __str__(self):
         if self.vazia():
             return '||'
-        pilha = '|>'
-        cursor = self.__head
+        fila = '|>'
+        cursor = self.__head.frente
         while(cursor != None):
-            pilha += f'{cursor.carga}, '
+            fila += f'{cursor.carga}, '
             cursor = cursor.prox
 
-        pilha = pilha.rstrip(', ') + '|' 
-        return pilha
+        fila = fila.rstrip(', ') + '<|' 
+        return fila
     
     def __len__(self):
-        return self.__topo + 1
+        return self.__head.tamanho
     
     #MÉTODOS DE CONTROLE
     def vazia(self):
-        return self.__topo == -1
+        return self.__head.tamanho == 0
     
-    def topo(self):
+    def frente(self):
         if self.vazia():
-            raise IndexError("a pilha está vazia")
-        return self.__head.carga         
+            raise IndexError("a fila está vazia")
+        return self.__head.frente.carga        
     
     #MÉTODOS GERAIS
-    def empilha(self, carga:any):
-        self.__topo += 1
+    def enfileira(self, carga:any):
         novo = no(carga)
-        novo.prox = self.__head
-        self.__head = novo
-
-    def desempilha(self):
         if self.vazia():
-            raise IndexError("a pilha está vazia")
-        self.__topo -= 1
-        elemento = self.__head.carga
-        self.__head = self.__head.prox
+            self.__head.frente = self.__head.fim = novo
+        else:
+            self.__head.fim.prox = novo
+            self.__head.fim = novo
+        self.__head.tamanho += 1
+
+    def desenfileira(self):
+        if self.vazia():
+            raise IndexError("a fila está vazia")
+        elemento = self.__head.frente.carga
+        if len(self) == 1:
+            self.__head.frente = self.__head.fim = None
+        else:
+            self.__head.frente = self.__head.frente.prox
+        self.__head.tamanho -= 1
         return elemento  
         
     def busca(self, elemento):
-        cursor = self.__head
+        cursor = self.__head.frente
         while (cursor != None):
             if cursor.carga == elemento:
                 return cursor.carga
             cursor = cursor.prox
-        raise IndexError(f'{elemento} não encontrado na pilha')
+        raise IndexError(f'{elemento} não encontrado na fila')
     
     def busca_elemento(self, num:int):
-        if num < 0 or num > self.__topo:
+        if num < 0 or num >= self.__head.tamanho:
             raise IndexError("valor fora do intervalo")
         cont = 0
-        cursor = self.__head
+        cursor = self.__head.frente
         while cont != num:
             cursor = cursor.prox
             cont += 1
@@ -75,7 +80,7 @@ class pilha_encadeada:
     
     def busca_posicao(self, elemento):
         cont = 0
-        cursor = self.__head
+        cursor = self.__head.frente
         while (cursor != None):
             if cursor.carga == elemento:
                 return cont
