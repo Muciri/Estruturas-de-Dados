@@ -69,3 +69,31 @@ class lista_sequencial:
             if self.__dados[i] == elemento:
                 return i
         return -1
+
+#teste
+if __name__ == '__main__':
+    #teste lista sequencial
+    teste = lista_sequencial(10)
+    teste.insere('1')
+    teste.insere('2')
+    teste.insere('3')
+    teste.insere('4')
+    teste.insere('5')
+    print(teste)
+    teste.modifica(3, '10')
+    teste.modifica(4, '20')
+    print(teste)
+    teste.remove(1)
+    teste.remove(2)
+    print(teste)
+
+    print(teste.busca_elemento(0))
+    print(teste.busca_elemento(1))
+    print(teste.busca_elemento(2))
+
+    print(teste.busca('1'))
+    print(teste.busca('3'))
+
+
+    print(teste.busca_posicao('3'))
+    print(teste.busca_posicao('4'))
