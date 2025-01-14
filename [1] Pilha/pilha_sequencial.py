@@ -1,5 +1,9 @@
 import numpy as np
 
+class PilhaError(Exception):
+    def __init__(self, messagem:str):
+        super().__init__(messagem)
+
 class pilha_sequencial:
     #CONSTRUTOR
     def __init__(self, tamanho: int):
@@ -22,27 +26,28 @@ class pilha_sequencial:
     
     #MÉTODOS DE CONTROLE
     def cheia(self):
-        return self.__topo == len(self.__dados)
+        return self.__topo + 1 == len(self.__dados)
     
     def vazia(self):
         return self.__topo == -1
     
     def topo(self):
         if self.vazia():
-            raise IndexError("a pilha está vazia")
+            raise PilhaError("a pilha está vazia")
         return self.__dados[self.__topo]       
     
     #MÉTODOS GERAIS
     def empilha(self, carga:any):
         if self.cheia():
-            raise IndexError("a pilha está cheia")
+            raise PilhaError("a pilha está cheia")
+        # self.__topo += 1
+        self.__dados[self.__topo + 1] = carga
         self.__topo += 1
-        self.__dados[self.__topo] = carga
             
 
     def desempilha(self):
         if self.vazia():
-            raise IndexError("a pilha está vazia")
+            raise PilhaError("a pilha está vazia")
         elemento = self.__dados[self.__topo]
         self.__dados[self.__topo] = None
         self.__topo -= 1
@@ -50,7 +55,7 @@ class pilha_sequencial:
         
     def busca_elemento(self, num):
         if num < 0 or num > self.__topo:
-            raise IndexError("valor fora do intervalo")
+            raise PilhaError("valor fora do intervalo")
         return self.__dados[num]
     
     def busca_posicao(self, elemento):
@@ -71,6 +76,7 @@ if __name__ == '__main__':
     teste.empilha('3')
     teste.empilha('4')
     teste.empilha('5')
+    
     print(teste)
     teste.desempilha()
     teste.desempilha()

@@ -1,3 +1,7 @@
+class ListaError(Exception):
+    def __init__(self, messagem:str):
+        super().__init__(messagem)
+
 class no:
     def __init__(self, carga:any):
         self.carga = carga
@@ -43,9 +47,9 @@ class lista_encadeada:
 
     def remove(self, num):
         if self.vazia():
-            raise IndexError("a lista está vazia")
+            raise ListaError("a lista está vazia")
         if num < 0 or num >= self.__tamanho:
-            raise IndexError("valor fora do intervalo")
+            raise ListaError("valor fora do intervalo")
         if len(self) == 1:
             self.__head = self.__head.prox
         else:
@@ -59,7 +63,7 @@ class lista_encadeada:
 
     def modifica(self, num, carga):
         if num < 0 or num >= self.__tamanho:
-            raise IndexError("valor fora do intervalo")
+            raise ListaError("valor fora do intervalo")
         else:
             cursor = self.__head
             cont = 0
@@ -74,11 +78,11 @@ class lista_encadeada:
             if cursor.carga == elemento:
                 return cursor.carga
             cursor = cursor.prox
-        raise ValueError(f'{elemento} não encontrado na fila')
+        raise ListaError(f'{elemento} não encontrado na fila')
     
     def busca_elemento(self, num:int):
         if num < 0 or num >= self.__tamanho:
-            raise IndexError("valor fora do intervalo")
+            raise ListaError("valor fora do intervalo")
         cont = 0
         cursor = self.__head
         for _ in range(num):

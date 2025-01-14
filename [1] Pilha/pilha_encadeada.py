@@ -1,3 +1,7 @@
+class PilhaError(Exception):
+    def __init__(self, messagem:str):
+        super().__init__(messagem)
+
 class no:
     def __init__(self, carga:any):
         self.carga = carga
@@ -31,7 +35,7 @@ class pilha_encadeada:
     
     def topo(self):
         if self.vazia():
-            raise IndexError("a pilha está vazia")
+            raise PilhaError("a pilha está vazia")
         return self.__head.carga         
     
     #MÉTODOS GERAIS
@@ -43,7 +47,7 @@ class pilha_encadeada:
 
     def desempilha(self):
         if self.vazia():
-            raise IndexError("a pilha está vazia")
+            raise PilhaError("a pilha está vazia")
         self.__topo -= 1
         elemento = self.__head.carga
         self.__head = self.__head.prox
@@ -55,11 +59,11 @@ class pilha_encadeada:
             if cursor.carga == elemento:
                 return cursor.carga
             cursor = cursor.prox
-        raise IndexError(f'{elemento} não encontrado na pilha')
+        raise PilhaError(f'{elemento} não encontrado na pilha')
     
     def busca_elemento(self, num:int):
         if num < 0 or num > self.__topo:
-            raise IndexError("valor fora do intervalo")
+            raise PilhaError("valor fora do intervalo")
         cont = 0
         cursor = self.__head
         while cont != num:

@@ -1,5 +1,9 @@
 import numpy as np
 
+class ListaError(Exception):
+    def __init__(self, messagem:str):
+        super().__init__(messagem)
+
 class lista_sequencial:
     #CONSTRUTOR
     def __init__(self, tamanho: int):
@@ -32,16 +36,16 @@ class lista_sequencial:
     #MÉTODOS GERAIS
     def insere(self, carga:any):
         if self.cheia():    
-            raise IndexError("a lista está cheia")    
+            raise ListaError("a lista está cheia")    
         self.__fim += 1 
         self.__dados[self.__fim] = carga
         self.__tamanho += 1
 
     def remove(self, num):
         if self.vazia():
-            raise IndexError("a lista está vazia")
+            raise ListaError("a lista está vazia")
         if num < 0 or num >= self.__tamanho:
-            raise IndexError("valor fora do intervalo")
+            raise ListaError("valor fora do intervalo")
         for i in range(num, self.__tamanho - 1):
             self.__dados[i] = self.__dados[i + 1]
         self.__dados[self.__tamanho - 1] = None
@@ -50,7 +54,7 @@ class lista_sequencial:
     
     def modifica(self, num, carga):
         if num < 0 or num >= self.__tamanho:
-            raise IndexError("valor fora do intervalo")
+            raise ListaError("valor fora do intervalo")
         self.__dados[num] = carga
 
     def busca(self, elemento):
@@ -61,7 +65,7 @@ class lista_sequencial:
 
     def busca_elemento(self, num):
         if num < 0 or num >= self.__tamanho:
-            raise IndexError("valor fora do intervalo")
+            raise ListaError("valor fora do intervalo")
         return self.__dados[num]
     
     def busca_posicao(self, elemento):

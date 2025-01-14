@@ -1,5 +1,9 @@
 import numpy as np
 
+class FilaError(Exception):
+    def __init__(self, messagem:str):
+        super().__init__(messagem)
+
 class fila_sequencial:
     #CONSTRUTOR
     def __init__(self, tamanho: int):
@@ -35,19 +39,19 @@ class fila_sequencial:
         if not self.vazia():
             return self.__dados[self.__frente]  
         else:
-            raise IndexError("a fila está vazia")
+            raise FilaError("a fila está vazia")
     
     #MÉTODOS GERAIS
     def enfileira(self, carga:any):
         if self.cheia():    
-            raise IndexError("a fila está cheia")    
+            raise FilaError("a fila está cheia")    
         self.__fim = (self.__fim + 1) % len(self.__dados)
         self.__dados[self.__fim] = carga
         self.__tamanho += 1
 
     def desenfileira(self):
         if self.vazia():
-            raise IndexError("a fila está vazia")
+            raise FilaError("a fila está vazia")
         elemento = self.__dados[self.__frente]
         self.__dados[self.__frente] = None
         self.__frente = (self.__frente +1) % len(self.__dados)
@@ -60,11 +64,11 @@ class fila_sequencial:
             if self.__dados[cursor] == elemento:
                 return self.__dados[cursor]
             cursor = (cursor + 1) % len(self.__dados)   
-        raise ValueError(f"Elemento {elemento} não encontrado na fila") 
+        raise FilaError(f"Elemento {elemento} não encontrado na fila") 
 
     def busca_elemento(self, num):
         if num < 0 or num >= self.__tamanho:
-            raise IndexError("valor fora do intervalo")
+            raise FilaError("valor fora do intervalo")
         cursor = self.__frente
         for i in range(num):
             cursor = (cursor +1) % len(self.__dados)
@@ -82,11 +86,13 @@ class fila_sequencial:
 #teste
 if __name__ == '__main__':   
     teste = fila_sequencial(10)
+
     teste.enfileira('1')
     teste.enfileira('2')
     teste.enfileira('3')
     teste.enfileira('4')
     teste.enfileira('5')
+
     print(teste)
     teste.desenfileira()
     teste.desenfileira()

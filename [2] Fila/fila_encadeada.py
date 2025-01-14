@@ -1,3 +1,7 @@
+class FilaError(Exception):
+    def __init__(self, messagem:str):
+        super().__init__(messagem)
+
 class no:
     def __init__(self, carga:any):
         self.carga = carga
@@ -36,7 +40,7 @@ class fila_encadeada:
     
     def frente(self):
         if self.vazia():
-            raise IndexError("a fila está vazia")
+            raise FilaError("a fila está vazia")
         return self.__head.frente.carga        
     
     #MÉTODOS GERAIS
@@ -51,7 +55,7 @@ class fila_encadeada:
 
     def desenfileira(self):
         if self.vazia():
-            raise IndexError("a fila está vazia")
+            raise FilaError("a fila está vazia")
         elemento = self.__head.frente.carga
         if len(self) == 1:
             self.__head.frente = self.__head.fim = None
@@ -66,11 +70,11 @@ class fila_encadeada:
             if cursor.carga == elemento:
                 return cursor.carga
             cursor = cursor.prox
-        raise IndexError(f'{elemento} não encontrado na fila')
+        raise FilaError(f'{elemento} não encontrado na fila')
     
     def busca_elemento(self, num:int):
         if num < 0 or num >= self.__head.tamanho:
-            raise IndexError("valor fora do intervalo")
+            raise FilaError("valor fora do intervalo")
         cont = 0
         cursor = self.__head.frente
         while cont != num:
