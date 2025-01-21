@@ -34,7 +34,15 @@ class lista_sequencial:
         return self.__tamanho == 0
     
     #MÉTODOS GERAIS
-    def insere(self, carga:any):
+    def insere(self, num:int, carga:any):
+        if self.cheia():    
+            raise ListaError("a lista está cheia")  
+        for i in range(num, self.__tamanho):
+            self.__dados[i] = self.__dados[i + 1]
+            print( self.__dados[i] )
+        self.__dados[num] = carga
+
+    def insere_final(self, carga:any):
         if self.cheia():    
             raise ListaError("a lista está cheia")    
         self.__fim += 1 
@@ -78,14 +86,16 @@ class lista_sequencial:
 if __name__ == '__main__':
     #teste lista sequencial
     teste = lista_sequencial(10)
-    teste.insere('1')
-    teste.insere('2')
-    teste.insere('3')
-    teste.insere('4')
-    teste.insere('5')
+    teste.insere_final('1')
+    teste.insere_final('2')
+    teste.insere_final('3')
+    teste.insere_final('4')
+    teste.insere_final('5')
     print(teste)
-    teste.modifica(3, '10')
-    teste.modifica(4, '20')
+    # teste.modifica(3, '10')
+    # teste.modifica(4, '20')
+    teste.insere(1, '1.5')
+    teste.insere(3, '3.5')
     print(teste)
     teste.remove(1)
     teste.remove(2)
@@ -95,8 +105,8 @@ if __name__ == '__main__':
     print(teste.busca_elemento(1))
     print(teste.busca_elemento(2))
 
-    print(teste.busca('1'))
-    print(teste.busca('3'))
+    # print(teste.busca('1'))
+    # print(teste.busca('3'))
 
 
     print(teste.busca_posicao('3'))

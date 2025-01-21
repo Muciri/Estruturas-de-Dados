@@ -34,7 +34,19 @@ class lista_encadeada:
         return self.__tamanho == 0    
     
     #MÉTODOS GERAIS
-    def insere(self, carga:any):
+    def insere(self, num: int, carga:any):
+        if num < 0 or num >= self.__tamanho:
+            raise ListaError("valor fora do intervalo")
+        novo = no(carga)
+        cursor = self.__head
+        for i in range(num):
+            anterior = cursor
+            cursor = cursor.prox
+        anterior.prox = novo
+        novo.prox = cursor
+        self.__tamanho += 1
+
+    def insere_final(self, carga:any):
         novo = no(carga)
         if self.vazia():
             self.__head = novo
@@ -50,15 +62,14 @@ class lista_encadeada:
             raise ListaError("a lista está vazia")
         if num < 0 or num >= self.__tamanho:
             raise ListaError("valor fora do intervalo")
-        if len(self) == 1:
+        if len(self) == 1 or num == 0:
             self.__head = self.__head.prox
         else:
-            cont = 0
             cursor = self.__head
-            while cont != num-1:
+            for i in range(num):
+                anterior = cursor
                 cursor = cursor.prox
-                cont += 1
-            cursor.prox = cursor.prox.prox
+            anterior.prox = cursor.prox
         self.__tamanho -= 1
 
     def modifica(self, num, carga):
@@ -103,27 +114,41 @@ class lista_encadeada:
 if __name__ == '__main__':
     #teste lista sequencial
     teste = lista_encadeada()
-    teste.insere('1')
-    teste.insere('2')
-    teste.insere('3')
-    teste.insere('4')
-    teste.insere('5')
+    teste.insere_final('1')
+    teste.insere_final('2')
+    teste.insere_final('3')
+    teste.insere_final('4')
+    teste.insere_final('5')
     print(teste)
-    teste.modifica(3, '10')
-    teste.modifica(4, '20')
+    print('-------')
+    
+    teste.insere(1, '0.5')
+    teste.insere(3, '3.5')
+    print(teste)
+    print('-------')
+    
+    teste.modifica(3, '35')
+    teste.modifica(4, '30')
+    print(teste)
+    print('-------')
+
+    teste.remove(0)
     print(teste)
     teste.remove(1)
     print(teste)
     teste.remove(2)
     print(teste)
+    teste.remove(3)
+    print(teste)
     print('-------')
+    
     print(teste.busca_elemento(1))
     print(teste.busca_elemento(2))
-
     print('-------')
-    print(teste.busca('1'))
-    print(teste.busca('3'))
-
+    
+    print(teste.busca('35'))
+    print(teste.busca('4')) 
     print('-------')
+    
     print(teste.busca_posicao('3'))
     print(teste.busca_posicao('4'))
