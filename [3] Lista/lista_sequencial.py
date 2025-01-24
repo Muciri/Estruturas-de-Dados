@@ -34,13 +34,15 @@ class lista_sequencial:
         return self.__tamanho == 0
     
     #MÉTODOS GERAIS
-    def insere(self, num:int, carga:any):
-        if self.cheia():    
-            raise ListaError("a lista está cheia")  
-        for i in range(num, self.__tamanho):
-            self.__dados[i] = self.__dados[i + 1]
-            print( self.__dados[i] )
-        self.__dados[num] = carga
+
+    def insere(self, posicao, elemento):
+        if posicao < 0 or posicao > self.__tamanho:
+            raise IndexError("Posição fora do intervalo válido")
+
+        self.__dados[posicao+1:self.__tamanho+1] = self.__dados[posicao:self.__tamanho]
+
+        self.__dados[posicao] = elemento
+        self.__tamanho += 1
 
     def insere_final(self, carga:any):
         if self.cheia():    
