@@ -43,10 +43,21 @@ class arvore_binaria_ordenada:
 
     def add(self, carga):
         self.__add_aux(self.__raiz, carga) 
+    
+    def __busca_aux(self, raiz, key):
+        if raiz == None:
+            raise arvoreError('elemento não encontrado')
+        elif key == raiz.carga:
+            return raiz.carga
+        elif key < raiz.carga:
+            return self.__busca_aux(raiz.esq, key)
+        elif key > raiz.carga:
+            return self.__busca_aux(raiz.dir, key)
+        
+        return raiz.carga
 
-    def busca(self, raiz, key):
-        if raiz == key:
-            return True
+    def busca(self, key):
+        return self.__busca_aux(self.__raiz, key)
     
     def __conta_folhas_aux(self, raiz):
         if raiz == None:
@@ -74,4 +85,5 @@ if __name__ == "__main__":
 
     print(arvore)
     print(arvore.conta_folhas())
+    print(arvore.busca(4))
     
