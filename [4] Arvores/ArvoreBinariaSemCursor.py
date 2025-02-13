@@ -15,13 +15,11 @@ class ArvoreBinaria:
         else:
             self.raiz = None
             self.tamanho = 0
-        # self.cursor = self.raiz
 
     def criar_raiz(self, carga):
         if self.raiz is not None:
             raise Exception("Raiz já existe")
         self.raiz = No(carga)
-        self.cursor = self.raiz
         self.tamanho = 1
 
     def esta_vazia(self):
@@ -93,11 +91,6 @@ if __name__ == "__main__":
 
     raiz = arvore.get_raiz()
     print('raiz: ',raiz)
-
-
-
-
-    print(len(arvore))
 
     arvore.pre_ordem()
     print()

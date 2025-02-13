@@ -85,6 +85,7 @@ class arvore_binaria_ordenada:
         return self.__conta_folhas_aux(raiz.esq) + self.__conta_folhas_aux(raiz.dir)
     
     def preordem(self):
+        '''imprime todos os elementos da árvore em pré ordem'''
         self.__preordem(self.__raiz)
         print('')
     
@@ -95,6 +96,7 @@ class arvore_binaria_ordenada:
             self.__preordem(raiz.dir)
     
     def posordem(self):
+        '''imprime todos os elementos da árvore em pós ordem'''
         self.__posordem(self.__raiz)
         print('')
 
@@ -105,6 +107,7 @@ class arvore_binaria_ordenada:
             print(raiz.carga, end=' ')
     
     def emordem(self):
+        '''imprime todos os elementos da árvore em ordem'''
         self.__emordem(self.__raiz)
         print('')
 
