@@ -15,7 +15,7 @@ class ArvoreBinaria:
         else:
             self.raiz = None
             self.tamanho = 0
-        self.cursor = self.raiz
+        # self.cursor = self.raiz
 
     def criar_raiz(self, carga):
         if self.raiz is not None:
@@ -29,37 +29,28 @@ class ArvoreBinaria:
 
     def get_raiz(self)->any:
         return self.raiz
-    
-    def get_cursor(self):
-        return self.cursor.carga
-    
-    def desce_esquerda(self):
-        if self.cursor is None or self.cursor.esq is None:
-            return
-        self.cursor = self.cursor.esq
 
-    def desce_direita(self):
-        if self.cursor is None or self.cursor.dir is None:
-            return
-        self.cursor = self.cursor.dir
+    def get(self, chave:any)->any:
+        return self.__get(chave, self.raiz)
 
-    def add_esq(self, carga):
-        if self.raiz is None:
-            raise Exception("Arvore sem raiz")
+    def __get(self, chave:any, node:No)->No:
+        if (node == None):
+            return None # Nao encontrou a chave
+        if ( chave == node.carga):
+            return node
+        
+        noRetornado = self.__get( chave, node.esq)
+        
+        if (noRetornado):
+            return noRetornado
         else:
-            if self.cursor is None:
-                raise Exception("nó do cursor já tem um filho esquerdo")
-            self.cursor.esq = No(carga)
-            self.tamanho += 1
+            return self.__get( chave, node.dir)
+
+    def add_esq(self, chave, carga):
+        self.get(chave).esq = No(carga)
     
-    def add_dir(self, carga):
-        if self.raiz is None:
-            raise Exception("Arvore sem raiz")
-        else:
-            if self.cursor is None:
-                raise Exception("nó do cursor já tem um filho esquerdo")
-            self.cursor.dir = No(carga)
-            self.tamanho += 1
+    def add_dir(self, chave, carga):
+        self.get(chave).dir = No(carga)
 
     def pos_ordem(self):
         self.__pos_ordem(self.raiz)
@@ -90,29 +81,22 @@ class ArvoreBinaria:
     
     def __len__(self):
         return self.tamanho
-
-
-
     
 if __name__ == "__main__":
     arvore = ArvoreBinaria(10)
 
-    print(arvore.get_cursor())
-    print(len(arvore))
+    arvore.add_dir(10, 5)
+    arvore.add_esq(10, 4)
 
-    arvore.add_dir(6)
-    arvore.desce_direita()
-    print(arvore.get_cursor())
-    arvore.add_esq(7)
-    arvore.add_dir(8)
+    arvore.add_dir(5, '6')
+    arvore.add_esq(4, [3])
+
     raiz = arvore.get_raiz()
-    print(arvore.get_cursor())
-    print(len(arvore))
+    print('raiz: ',raiz)
 
-    arvore.desce_direita()
-    arvore.add_dir(9)
-    print(arvore.get_raiz())
-    print(arvore.get_cursor())
+
+
+
     print(len(arvore))
 
     arvore.pre_ordem()
@@ -120,3 +104,4 @@ if __name__ == "__main__":
     arvore.em_ordem()
     print()
     arvore.pos_ordem()
+    print('\ntamanho da árvore: ',len(arvore))
