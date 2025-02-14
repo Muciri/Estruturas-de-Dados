@@ -90,9 +90,6 @@ class ArvoreBinaria:
     
     def __len__(self):
         return self.tamanho
-
-
-
     
 if __name__ == "__main__":
     arvore = ArvoreBinaria(10)

@@ -76,6 +76,10 @@ class ArvoreBinaria:
         self.raiz = None
         for _ in range(len(self.pilha)):
             self.pilha.desempilha
+    
+    def localiza_pai(self, chave:any):
+        return self.pilha.busca_posicao(chave) + 1
+        # return self.pilha.busca_elemento(self.pilha.busca_posicao(chave) + 1)
 
     def pos_ordem(self):
         self.__pos_ordem(self.raiz)
@@ -103,9 +107,19 @@ class ArvoreBinaria:
             self.__em_ordem(raiz.esq)
             print(raiz.carga, end=' ')
             self.__em_ordem(raiz.dir)
+
+    def __contarnos(self, No:No):
+        if No == None:
+            return 0
+        cont = 0
+        cont += 1
+        cont += self.__contarnos(No.esq)
+        cont += self.__contarnos(No.dir)
+
+        return cont
     
     def __len__(self):
-        return self.tamanho
+        return self.__contarnos(self.raiz)
 
 if __name__ == "__main__":
     arvore = ArvoreBinaria(10)
@@ -133,6 +147,16 @@ if __name__ == "__main__":
     arvore.em_ordem()
     print()
     arvore.pos_ordem()
+
+    print(f'\n{arvore.cursor}'.lstrip(''))
+    arvore.back()
+    print(arvore.cursor)
+
+    print(arvore.pilha)
+    print(arvore.localiza_pai(8))
+
+    print(len(arvore))
+
 
     arvore.esvaziar()
     print('\nárvore esvaziada')
