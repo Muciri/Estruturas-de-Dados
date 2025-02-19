@@ -72,6 +72,10 @@ class arvore_binaria_ordenada:
         
         return raiz.carga
     
+    def remove(self, key):
+        if key.esq == None and key.dir == None:
+            pass
+    
     def conta_folhas(self):
         '''conta quantos nós folha a árvore tem'''
         return self.__conta_folhas_aux(self.__raiz)
