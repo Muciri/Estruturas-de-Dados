@@ -33,6 +33,9 @@ class ArvoreBinaria:
     def get_cursor(self):
         return self.cursor.carga
     
+    def reset_cursor(self):
+        self.cursor = self.raiz
+    
     def desce_esquerda(self):
         if self.cursor is None or self.cursor.esq is None:
             return
