@@ -1,16 +1,12 @@
+from Nodes.Tree_Node import Node
+
 class arvoreError(Exception):
     def __init__(self, messagem:str):
         super().__init__(messagem)
 
-class no:
-    def __init__(self, carga):
-        self.carga = carga
-        self.esq = None
-        self.dir = None 
-
-class arvore_binaria_ordenada:
+class SearchBinaryTree:
     def __init__(self, raiz=None):
-        self.__raiz = no(raiz) if raiz != None else None
+        self.__raiz = Node(raiz) if raiz != None else None
         self.__tamanho = 0 if raiz == None else 1
 
     #função STR copiada provisoriamente do copilot
@@ -38,7 +34,7 @@ class arvore_binaria_ordenada:
         '''adiciona um elemento à raiz, caso a árvore esteja vazia'''
         if not self.vazia():
             raise arvoreError('a árvore já tem raiz')
-        self.__raiz = no(carga)
+        self.__raiz = Node(carga)
         self.__tamanho += 1
 
     def add(self, carga):
@@ -48,7 +44,7 @@ class arvore_binaria_ordenada:
 
     def __add_aux(self, raiz, carga):
         if raiz == None:
-            return no(carga)
+            return Node(carga)
         elif carga < raiz.carga:
             raiz.esq = self.__add_aux(raiz.esq, carga)
         elif carga >= raiz.carga:
@@ -122,7 +118,7 @@ class arvore_binaria_ordenada:
             self.__preordem(raiz.dir)
 
 if __name__ == "__main__":
-    arvore = arvore_binaria_ordenada(10)
+    arvore = SearchBinaryTree(10)
     
     arvore.add(5)
     arvore.add(4)
