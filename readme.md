@@ -2,6 +2,7 @@
 This repository contains simple explanations and examples of basic data structures implemented in Python.  
 Author: Murilo Maciel Rodrigues - Student of Systems for Internet - IFPB (Instituto Federal da Paraíba) 
 
+## Linear Structures:
 ---
 
 ## Stack  
@@ -9,7 +10,6 @@ A **stack** is a LIFO (Last In, First Out) data structure. The last element adde
 In Python, stacks can be implemented using lists with the `append()` and `pop()` methods.  
 **Use cases**: undo features, expression evaluation, backtracking.
 
----
 ## Queue
 A **queue** is a FIFO (First In, First Out) data structure. The first element added is the first one removed.
 In Python, queues can be implemented using collections.deque or queue.Queue.
@@ -23,3 +23,10 @@ Python’s collections.deque supports operations like append(), appendleft(), po
 A **linked** list is a collection of nodes where each node contains a value and a pointer to the next node.
 Python does not have a built-in linked list, but it can be implemented using custom classes.
 Use cases: efficient insertions/deletions, dynamic memory usage.
+
+## Hierarchical_structures:
+---
+
+## Simple Binary Tree
+A **Binary Tree** is a data structure where each node has up to two children: a left child and a right child. 
+It doesn't follow any specific order for storing values. 
